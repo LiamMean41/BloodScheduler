@@ -12,18 +12,21 @@ public class person {
     
     private String name;
     private int age;
+
+    person() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     private enum priority{ URGENT, MEDIUM, LOW};
     private String gpdetails;
     private boolean arrived;
+    private boolean fromWard;
 
-    public person(String name, int age, String gpdetails, boolean arrived) {
+    public person(String name, int age, String gpdetails, boolean arrived, boolean fromWard) {
         this.name = name;
         this.age = age;
         this.gpdetails = gpdetails;
         this.arrived = arrived;
-    }
-
-    public person() {
+        this.fromWard = fromWard;
     }
 
     public String getName() {
@@ -58,10 +61,18 @@ public class person {
         this.arrived = arrived;
     }
 
+    public boolean isFromWard() {
+        return fromWard;
+    }
+
+    public void setFromWard(boolean fromWard) {
+        this.fromWard = fromWard;
+    }
+
     @Override
     public String toString() {
-        return "person{" + "name=" + name + ", age=" + age + ", gpdetails=" + gpdetails + ", arrived=" + arrived + '}';
+        return "person{" + "name=" + name + ", age=" + age + ", gpdetails=" + gpdetails + ", arrived=" + arrived + ", fromWard=" + fromWard + '}';
     }
-    
-    
+
+
 }

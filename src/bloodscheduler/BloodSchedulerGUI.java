@@ -4,17 +4,21 @@
  */
 package bloodscheduler;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mossotron
  */
 public class BloodSchedulerGUI extends javax.swing.JFrame {
-
+    //PersonInterface pi = new Person();
+    ArrayList<person> list;
     /**
      * Creates new form BloodSchedulerGUI
      */
     public BloodSchedulerGUI() {
         initComponents();
+        
     }
 
     /**
@@ -78,8 +82,18 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
         });
 
         addBtn.setText("Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         displayBtn.setText("Display");
+        displayBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,6 +177,21 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
     private void rbNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbNoActionPerformed
+
+    private void displayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayBtnActionPerformed
+        // TODO add your handling code here:
+        for(int i = 0; i < list.size(); i++){
+            person e = list.get(i);
+            displayTA.append(e.toString()+"\n"); 
+        }
+    }//GEN-LAST:event_displayBtnActionPerformed
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        // TODO add your handling code here:
+        person newPerson = new person();
+        
+        newPerson.setName(tfName.getText());
+    }//GEN-LAST:event_addBtnActionPerformed
 
     /**
      * @param args the command line arguments
