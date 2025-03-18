@@ -226,7 +226,7 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-        person newPerson = new person();
+        Person newPerson = new Person();
         
         newPerson.setName(tfName.getText());
         newPerson.setAge(Integer.parseInt(tfAge.getText()));

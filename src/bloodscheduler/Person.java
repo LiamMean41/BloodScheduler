@@ -8,7 +8,7 @@ package bloodscheduler;
  *
  * @author mossotron
  */
-public class person {
+public class Person {
     
      
     private String name;
@@ -19,11 +19,11 @@ public class person {
     private boolean fromWard;
     
     // Default constructor
-    public person() {
+    public Person() {
     }
     
     // Parameterized constructor
-    public person(String name, int age, String priority, String gpdetails, boolean arrived, boolean fromWard) {
+    public Person(String name, int age, String priority, String gpdetails, boolean arrived, boolean fromWard) {
         this.name = name;
         this.age = age;
         this.priority = priority;

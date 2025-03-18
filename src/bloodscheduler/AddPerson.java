@@ -14,9 +14,9 @@ import java.util.Comparator;
  */
 public class AddPerson implements PersonInterface{
     
-    private ArrayList<person> queue;
-    private ArrayList<person> stack;
-    private ArrayList<person> priorityQueue;
+    private ArrayList<Person> queue;
+    private ArrayList<Person> stack;
+    private ArrayList<Person> priorityQueue;
     
     public AddPerson() {
         queue = new ArrayList<>();
@@ -25,18 +25,18 @@ public class AddPerson implements PersonInterface{
     }
     
     @Override
-    public void enqueue(person p) {
+    public void enqueue(Person p) {
         queue.add(p);
     }
     
     @Override
-    public person dequeue() {
+    public Person dequeue() {
         if(queue.isEmpty()) return null;
         return queue.remove(0);
     }
     
     @Override
-    public person peekQueue() {
+    public Person peekQueue() {
         if(queue.isEmpty()) return null;
         return queue.get(0);
     }
@@ -44,25 +44,25 @@ public class AddPerson implements PersonInterface{
     @Override
     public String displayQueue() {
         StringBuilder sb = new StringBuilder();
-        for(person p : queue) {
+        for(Person p : queue) {
             sb.append(p.toString()).append("\n");
         }
         return sb.toString();
     }
     
     @Override
-    public void push(person p) {
+    public void push(Person p) {
         stack.add(p);
     }
     
     @Override
-    public person pop() {
+    public Person pop() {
         if(stack.isEmpty()) return null;
         return stack.remove(stack.size()-1);
     }
     
     @Override
-    public person peekStack() {
+    public Person peekStack() {
         if(stack.isEmpty()) return null;
         return stack.get(stack.size()-1);
     }
@@ -70,18 +70,18 @@ public class AddPerson implements PersonInterface{
     @Override
     public String displayStack() {
         StringBuilder sb = new StringBuilder();
-        for(person p : stack) {
+        for(Person p : stack) {
             sb.append(p.toString()).append("\n");
         }
         return sb.toString();
     }
     
     @Override
-    public void insertPriority(person p) {
+    public void insertPriority(Person p) {
         priorityQueue.add(p);
-        Collections.sort(priorityQueue, new Comparator<person>() {
+        Collections.sort(priorityQueue, new Comparator<Person>() {
             @Override
-            public int compare(person p1, person p2) {
+            public int compare(Person p1, Person p2) {
                 int prioComparison = comparePriority(p1, p2);
                 if(prioComparison != 0) return prioComparison;
                 int ageComparison = Integer.compare(p2.getAge(), p1.getAge());
@@ -92,13 +92,13 @@ public class AddPerson implements PersonInterface{
     }
     
     @Override
-    public person removePriority() {
+    public Person removePriority() {
         if(priorityQueue.isEmpty()) return null;
         return priorityQueue.remove(0);
     }
     
     @Override
-    public person peekPriority() {
+    public Person peekPriority() {
         if(priorityQueue.isEmpty()) return null;
         return priorityQueue.get(0);
     }
@@ -106,13 +106,13 @@ public class AddPerson implements PersonInterface{
     @Override
     public String displayPriority() {
         StringBuilder sb = new StringBuilder();
-        for(person p : priorityQueue) {
+        for(Person p : priorityQueue) {
             sb.append(p.toString()).append("\n");
         }
         return sb.toString();
     }
    
-    private int comparePriority(person p1, person p2) {
+    private int comparePriority(Person p1, Person p2) {
         int value1 = getPriorityValue(p1.getPriority());
         int value2 = getPriorityValue(p2.getPriority());
         return Integer.compare(value1, value2); 

@@ -9,17 +9,17 @@ package bloodscheduler;
  * @author mossotron
  */
 public interface PersonInterface {
-    public void enqueue(person p);
-    public person dequeue();
-    public person peekQueue();
+    public void enqueue(Person p);
+    public Person dequeue();
+    public Person peekQueue();
     public String displayQueue();
-    public void push(person p);
-    public person pop();
-    public person peekStack();
+    public void push(Person p);
+    public Person pop();
+    public Person peekStack();
     public String displayStack();
-    public void insertPriority(person p);
-    public person removePriority();
-    public person peekPriority();
+    public void insertPriority(Person p);
+    public Person removePriority();
+    public Person peekPriority();
     public String displayPriority();
     
 }
