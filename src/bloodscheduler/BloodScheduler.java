@@ -15,6 +15,8 @@ public class BloodScheduler {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        BloodSchedulerGUI GUI= new BloodSchedulerGUI();
+        GUI.setVisible(true);
     }
     
 }
