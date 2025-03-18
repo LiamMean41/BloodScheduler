@@ -11,14 +11,18 @@ import java.util.ArrayList;
  * @author mossotron
  */
 public class BloodSchedulerGUI extends javax.swing.JFrame {
-    //PersonInterface pi = new Person();
-    ArrayList<person> list;
+    private AddPerson person;
     /**
      * Creates new form BloodSchedulerGUI
      */
     public BloodSchedulerGUI() {
         initComponents();
+        person = new AddPerson();
         
+        cbPriority.removeAllItems();
+        cbPriority.addItem("URGENT");
+        cbPriority.addItem("MEDIUM");
+        cbPriority.addItem("LOW");
     }
 
     /**
@@ -33,9 +37,8 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
         arrivedGroup = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         displayTA = new javax.swing.JTextArea();
-        tfName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        tfAge = new javax.swing.JTextField();
+        tfName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         cbPriority = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -46,6 +49,8 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
         rbNo = new javax.swing.JRadioButton();
         addBtn = new javax.swing.JButton();
         displayBtn = new javax.swing.JButton();
+        tfAge = new javax.swing.JTextField();
+        displayPeopleBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,6 +59,12 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(displayTA);
 
         jLabel1.setText("Name:");
+
+        tfName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNameActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Age:");
 
@@ -95,6 +106,13 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
             }
         });
 
+        displayPeopleBtn.setText("Display All People");
+        displayPeopleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayPeopleBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,29 +129,40 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(rbNo))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49)
-                                .addComponent(jLabel4)
-                                .addGap(31, 31, 31)
-                                .addComponent(tfGP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(49, 49, 49)
+                                        .addComponent(jLabel4)
+                                        .addGap(31, 31, 31))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(35, 35, 35)
+                                        .addComponent(jLabel2)
+                                        .addGap(28, 28, 28)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfGP, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(tfAge)))))
+                        .addGap(522, 522, 522))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 351, Short.MAX_VALUE)
-                        .addComponent(displayBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addBtn)
-                        .addGap(52, 52, 52))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(displayPeopleBtn)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(displayBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addBtn)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,10 +170,10 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
+                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
@@ -155,16 +184,19 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(rbYes)
                     .addComponent(rbNo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                         .addGap(35, 35, 35))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(displayPeopleBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addBtn)
                             .addComponent(displayBtn))
-                        .addGap(47, 47, 47))))
+                        .addGap(43, 43, 43))))
         );
 
         pack();
@@ -180,10 +212,16 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
 
     private void displayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayBtnActionPerformed
         // TODO add your handling code here:
-        for(int i = 0; i < list.size(); i++){
-            person e = list.get(i);
-            displayTA.append(e.toString()+"\n"); 
-        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Queue (all Requests):\n");
+        sb.append(person.displayQueue());
+        sb.append("\nStack (No-Shows):\n");
+        sb.append(person.displayStack());
+        sb.append("\nPriority Queue (Scheduling Order):\n");
+        sb.append(person.displayPriority());
+        displayTA.setText(sb.toString());
+
+
     }//GEN-LAST:event_displayBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
@@ -191,7 +229,32 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
         person newPerson = new person();
         
         newPerson.setName(tfName.getText());
+        newPerson.setAge(Integer.parseInt(tfAge.getText()));
+        newPerson.setPriority(cbPriority.getSelectedItem().toString());
+        newPerson.setGpdetails(tfGP.getText());
+        newPerson.setArrived(rbYes.isSelected());
+        newPerson.setFromWard(false);
+        person.enqueue(newPerson);
+        person.insertPriority(newPerson);
+        if(!newPerson.isArrived()){
+            person.push(newPerson);
+            if(person.displayStack().split("\n").length > 5){
+                person.pop();
+            }
+        }
+        displayTA.setText("Add person sucessfully!");
+        
     }//GEN-LAST:event_addBtnActionPerformed
+
+    private void displayPeopleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayPeopleBtnActionPerformed
+        // TODO add your handling code here:
+        String peopleList = person.displayQueue();
+        displayTA.setText("All People Added:\n" + peopleList);
+    }//GEN-LAST:event_displayPeopleBtnActionPerformed
+
+    private void tfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,6 +296,7 @@ public class BloodSchedulerGUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup arrivedGroup;
     private javax.swing.JComboBox<String> cbPriority;
     private javax.swing.JButton displayBtn;
+    private javax.swing.JButton displayPeopleBtn;
     private javax.swing.JTextArea displayTA;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

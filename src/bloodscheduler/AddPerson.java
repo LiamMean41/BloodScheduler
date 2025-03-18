@@ -5,84 +5,127 @@
 package bloodscheduler;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
  * @author mossotron
  */
 public class AddPerson implements PersonInterface{
-     ArrayList<String> personData;
-
-    public AddPerson(ArrayList<String> theStack) {
-        this.personData = theStack;
-    }
-
-     
-    public boolean isEmpty(){
-        return personData.isEmpty();
-        
-    }
-
-    public void push(Object newItem){
-        personData.add(0, (String)newItem); 
+    
+    private ArrayList<person> queue;
+    private ArrayList<person> stack;
+    private ArrayList<person> priorityQueue;
+    
+    public AddPerson() {
+        queue = new ArrayList<>();
+        stack = new ArrayList<>();
+        priorityQueue = new ArrayList<>();
     }
     
-    public Object remove(){
-        if (!(personData.isEmpty())){
-            return personData.remove(0);
-        }else{
-            return null;
-        }
-    }
-    
-    public Object add() {
-      if (personData.isEmpty()) {
-          System.out.println("Empty stack");
-          return null;
-      } else {    
-          return personData.get(0);
-      }
-    }
-  
-    public int size(){
-        return personData.size();
-    }
-
-    public String displayStack(){
-       String str = new String(); 
-       if(personData.isEmpty()){
-           str = str.concat("EMPTY!");
-       }else{
-           for (int i = 0; i<personData.size(); i++){
-               str = str.concat(personData.get(i));
-               str = str.concat(" ; ");
-           }
-       }
-       return str;
-    }
-    
-    public Object get() {
-       String obj;
-       obj = personData.get(0);
-       System.out.println(obj);
-
-       return obj;
-    }
-
-    public String getIndex(int firstInList) {
-        int sol = firstInList; 
-        
-        String first = personData.get(sol);
-        
-        System.out.println(first);
-        return first;
-    }
-
     @Override
-    public String diplayStack() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void enqueue(person p) {
+        queue.add(p);
     }
     
+    @Override
+    public person dequeue() {
+        if(queue.isEmpty()) return null;
+        return queue.remove(0);
+    }
     
+    @Override
+    public person peekQueue() {
+        if(queue.isEmpty()) return null;
+        return queue.get(0);
+    }
     
+    @Override
+    public String displayQueue() {
+        StringBuilder sb = new StringBuilder();
+        for(person p : queue) {
+            sb.append(p.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    
+    @Override
+    public void push(person p) {
+        stack.add(p);
+    }
+    
+    @Override
+    public person pop() {
+        if(stack.isEmpty()) return null;
+        return stack.remove(stack.size()-1);
+    }
+    
+    @Override
+    public person peekStack() {
+        if(stack.isEmpty()) return null;
+        return stack.get(stack.size()-1);
+    }
+    
+    @Override
+    public String displayStack() {
+        StringBuilder sb = new StringBuilder();
+        for(person p : stack) {
+            sb.append(p.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    
+    @Override
+    public void insertPriority(person p) {
+        priorityQueue.add(p);
+        Collections.sort(priorityQueue, new Comparator<person>() {
+            @Override
+            public int compare(person p1, person p2) {
+                int prioComparison = comparePriority(p1, p2);
+                if(prioComparison != 0) return prioComparison;
+                int ageComparison = Integer.compare(p2.getAge(), p1.getAge());
+                if(ageComparison != 0) return ageComparison;
+                return Boolean.compare(p2.isFromWard(), p1.isFromWard());
+            }
+        });
+    }
+    
+    @Override
+    public person removePriority() {
+        if(priorityQueue.isEmpty()) return null;
+        return priorityQueue.remove(0);
+    }
+    
+    @Override
+    public person peekPriority() {
+        if(priorityQueue.isEmpty()) return null;
+        return priorityQueue.get(0);
+    }
+    
+    @Override
+    public String displayPriority() {
+        StringBuilder sb = new StringBuilder();
+        for(person p : priorityQueue) {
+            sb.append(p.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+   
+    private int comparePriority(person p1, person p2) {
+        int value1 = getPriorityValue(p1.getPriority());
+        int value2 = getPriorityValue(p2.getPriority());
+        return Integer.compare(value1, value2); 
+    }
+    
+    private int getPriorityValue(String prio) {
+        if(prio.equalsIgnoreCase("URGENT"))
+            return 1;
+        else if(prio.equalsIgnoreCase("MEDIUM"))
+            return 2;
+        else if(prio.equalsIgnoreCase("LOW"))
+            return 3;
+        else
+            return 4;
+    }
 }

@@ -10,23 +10,31 @@ package bloodscheduler;
  */
 public class person {
     
+     
     private String name;
     private int age;
-
-    person() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    private enum priority{ URGENT, MEDIUM, LOW};
+    private String priority; 
     private String gpdetails;
     private boolean arrived;
     private boolean fromWard;
-
-    public person(String name, int age, String gpdetails, boolean arrived, boolean fromWard) {
+    
+    // Default constructor
+    public person() {
+    }
+    
+    // Parameterized constructor
+    public person(String name, int age, String priority, String gpdetails, boolean arrived, boolean fromWard) {
         this.name = name;
         this.age = age;
+        this.priority = priority;
         this.gpdetails = gpdetails;
         this.arrived = arrived;
         this.fromWard = fromWard;
+    }
+
+    @Override
+    public String toString() {
+        return "person{" + "name=" + name + ", age=" + age + ", priority=" + priority + ", gpdetails=" + gpdetails + ", arrived=" + arrived + ", fromWard=" + fromWard + '}';
     }
 
     public String getName() {
@@ -43,6 +51,14 @@ public class person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
     public String getGpdetails() {
@@ -68,11 +84,9 @@ public class person {
     public void setFromWard(boolean fromWard) {
         this.fromWard = fromWard;
     }
-
-    @Override
-    public String toString() {
-        return "person{" + "name=" + name + ", age=" + age + ", gpdetails=" + gpdetails + ", arrived=" + arrived + ", fromWard=" + fromWard + '}';
-    }
-
-
+    
+    
+    
+    
+    
 }
